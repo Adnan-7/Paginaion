@@ -8,7 +8,9 @@ export const useFetch = () => {
     return data;
   };
 
-  const { data, isLoading } = useQuery('products', getProducts);
+  const { data, isLoading } = useQuery('products', getProducts, {
+    refetchOnWindowFocus: false,
+  });
 
   return { data, isLoading };
 };
