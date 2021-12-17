@@ -12,6 +12,26 @@ function App() {
     setFollowers(data[page]);
   }, [isLoading, page]);
 
+  const nextPage = () => {
+    setPage((oldPage) => {
+      let nextPage = oldPage + 1;
+      if (nextPage > data.length - 1) {
+        nextPage = 0;
+      }
+      return nextPage;
+    });
+  };
+
+  const prevPage = () => {
+    setPage((oldPage) => {
+      let prevPage = oldPage - 1;
+      if (prevPage < 0) {
+        prevPage = data.length - 1;
+      }
+      return prevPage;
+    });
+  };
+
   if (isLoading) {
     return (
       <main>
@@ -38,6 +58,9 @@ function App() {
 
         {!isLoading && (
           <div className='btn-container'>
+            <button className='prev-btn' onClick={prevPage}>
+              Prev
+            </button>
             {data.map((item, index) => {
               return (
                 <button
@@ -48,6 +71,10 @@ function App() {
                 </button>
               );
             })}
+
+            <button className='next-btn' onClick={nextPage}>
+              Next
+            </button>
           </div>
         )}
       </section>
