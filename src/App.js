@@ -4,7 +4,6 @@ import { useFetch } from './useFetch';
 
 function App() {
   const { data, isLoading } = useFetch();
-  console.log(data);
 
   if (isLoading) {
     return (
