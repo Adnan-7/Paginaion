@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Follower from './Follower';
 import { useFetch } from './useFetch';
 
 function App() {
   const { data, isLoading } = useFetch();
+  const [page, setPage] = useState(0);
+  const [followers, setFollowers] = useState([]);
+
+  useEffect(() => {
+    if (isLoading) return;
+    setFollowers(data[page]);
+  }, [isLoading]);
 
   if (isLoading) {
     return (
@@ -24,7 +31,7 @@ function App() {
 
       <section className='followers'>
         <div className='container'>
-          {data.map((follower) => {
+          {followers.map((follower) => {
             return <Follower key={follower.id} {...follower} />;
           })}
         </div>
