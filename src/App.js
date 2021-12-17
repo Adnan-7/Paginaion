@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     if (isLoading) return;
     setFollowers(data[page]);
-  }, [isLoading]);
+  }, [isLoading, page]);
 
   if (isLoading) {
     return (
@@ -35,6 +35,21 @@ function App() {
             return <Follower key={follower.id} {...follower} />;
           })}
         </div>
+
+        {!isLoading && (
+          <div className='btn-container'>
+            {data.map((item, index) => {
+              return (
+                <button
+                  key={index}
+                  className={`page-btn ${index === page ? 'active-btn' : null}`}
+                  onClick={() => setPage(index)}>
+                  {index + 1}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </section>
     </main>
   );
